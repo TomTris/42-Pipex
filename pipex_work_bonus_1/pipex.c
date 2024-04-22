@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:21:54 by qdo               #+#    #+#             */
-/*   Updated: 2024/04/22 20:26:06 by qdo              ###   ########.fr       */
+/*   Updated: 2024/04/22 20:35:02 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_pid_equal_0(t_cmd_save *cmd_save, int i, int fd_in, int *pipe_fd_new)
 		return (close(fd_in), close(pipe_fd_new[1]),
 			ft_free(0, cmd_save), exit(1), -99);
 	return (ft_cmd_execute(cmd_save, cmd_save[0].env,
-		i, pipe_fd_new[1]), exit(1), -99);
+			i, pipe_fd_new[1]), exit(1), -99);
 }
 
 int	ft_recursion_fork_pid(t_cmd_save *cmd_save, int i, int fd_in)
@@ -71,7 +71,7 @@ int	ft_recursion_fork_pid(t_cmd_save *cmd_save, int i, int fd_in)
 		return (ft_pid_equal_0(cmd_save, i, fd_in, pipe_fd_new), -99);
 	if (close(fd_in) == -1)
 		return (close(pipe_fd_new[0]), close(pipe_fd_new[1]),
-				ft_free(0, cmd_save), -1);
+			ft_free(0, cmd_save), -1);
 	if (close(pipe_fd_new[1]) == -1)
 		return (close(pipe_fd_new[0]), ft_free(0, cmd_save), -1);
 	return (pipe_fd_new[0]);
@@ -84,7 +84,6 @@ void	ft_wait_pid(void)
 
 	temp = ft_pid_create(-2);
 	i = 0;
-
 	while (++i <= temp[0].nbr)
 		waitpid(temp[i].pid, NULL, 0);
 }
