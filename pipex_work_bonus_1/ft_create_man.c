@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create.c                                        :+:      :+:    :+:   */
+/*   ft_create_man.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:46:18 by qdo               #+#    #+#             */
-/*   Updated: 2024/04/22 20:25:52 by qdo              ###   ########.fr       */
+/*   Updated: 2024/04/23 17:15:35 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	ft_create_path_save(char **env, t_cmd_save *cmd_save)
 			&& env[i][3] == 'H' && env[i][4] == '=' && env[i][5] == '/')
 			break ;
 	if (env[i] == 0)
-		return (perror("Path not found in env\n"), exit(1), 1);
+		return (perror("Path not found in env\n"),
+			ft_free(0, cmd_save), exit(1), 1);
 	ret = ft_split(env[i] + 5, ':');
 	if (ret == 0)
 		return (perror("Malloc\n"), ft_free(0, cmd_save), exit(1), 1);
@@ -33,18 +34,16 @@ int	ft_create_path_save(char **env, t_cmd_save *cmd_save)
 	{
 		temp = ft_strjoin(ret[i], "/");
 		if (temp == 0)
-			return (perror("Malloc\n"), ft_free(0, cmd_save), exit(1), 1);
+			return (perror("Malloc\n"), ft_free(ret, cmd_save), exit(1), 1);
 		free(ret[i]);
 		ret[i] = temp;
 	}
-	cmd_save[0].path_save = ret;
-	return (cmd_save[0].env = env, 0);
+	return (cmd_save[0].path_save = ret, cmd_save[0].env = env, 0);
 }
 
 void	ft_free(char **split, t_cmd_save *cmd_save)
 {
 	int			i;
-	t_pid_wait	*pid_wait;
 
 	if (split != 0)
 	{
@@ -61,7 +60,7 @@ void	ft_free(char **split, t_cmd_save *cmd_save)
 			ft_free(cmd_save[i].cmd, NULL);
 		free(cmd_save);
 	}
-	pid_wait = ft_pid_create(-3);
+	ft_pid_create(-3);
 }
 
 static void	ft_calloc_cmd_save(t_cmd_save *ret, int ac, const char **av)

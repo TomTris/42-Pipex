@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_man.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:21:54 by qdo               #+#    #+#             */
-/*   Updated: 2024/04/22 20:35:02 by qdo              ###   ########.fr       */
+/*   Updated: 2024/04/23 13:09:14 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_wait_pid(void)
 }
 
 //path_save has already '/' at the end, like /usr/bin/, just join cmd to it.
-int	main(int ac, const char **av, char **env)
+int	main_manda(int ac, const char **av, char **env)
 {
 	t_cmd_save	*cmd_save;
 	int			i;
@@ -103,52 +103,9 @@ int	main(int ac, const char **av, char **env)
 	{
 		fd_in = ft_recursion_fork_pid(cmd_save, i, fd_in);
 		if (fd_in == -1)
-			return (ft_wait_pid(), exit(-1), -99);
+			return (ft_wait_pid(), exit(1), -99);
 	}
 	ft_wait_pid();
 	ft_free(0, cmd_save);
 	return (0);
 }
-
-// int	ft_strcmp_pipex(char *str1, char *str2)
-// {
-// 	int	i;
-
-// 	if (str1 == 0 || str2 == 0)
-// 		return (1);
-// 	i = 0;
-// 	while (str1[i])
-// 	{
-// 		if (str1[i] == str2[i])
-// 			i++;
-// 		else
-// 			return (0);
-// 	}
-// 	if (str2 == 0)
-// 		return (1);
-// 	return (0);
-// }
-
-// int	ft_check_input(int ac, const **av)
-// {
-// 	int	i;
-
-// 	i = open(av[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 	if (i == -1)
-// 		perror()
-// }
-
-// int	main(int ac, const char **av, char **env)
-// {
-// 	if (ac < 5)
-// 		return (ft_usage(), exit(1));
-// 	if (ac == 6 && ft_strcmp_pipex(av[1], "here_doc") == 1)
-// 		main_here_doc(ac, av, env);
-// 	else
-// 	{
-// 		if (ft_check_input(ac, av) == 1)
-// 			main_manda(ac, av, env);
-// 		else
-// 			exit(1);
-// 	}
-// }
