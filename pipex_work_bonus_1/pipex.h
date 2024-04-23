@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 23:44:49 by qdo               #+#    #+#             */
-/*   Updated: 2024/04/22 20:36:08 by qdo              ###   ########.fr       */
+/*   Updated: 2024/04/23 16:52:28 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ typedef struct s_cmd_save
 	const char	*av_last;
 }	t_cmd_save;
 
+typedef struct s_save_bn
+{
+	int			ac;
+	const char	**av;
+	char		***cmd;
+	char		**path_save;
+	char		**env;
+}	t_save_bn;
+
 typedef struct s_pid_wait
 {
 	int		nbr;
@@ -48,5 +57,20 @@ t_pid_wait	*ft_pid_create(pid_t pid);
 int			ft_cmd_execute(t_cmd_save *cmd_save, char **env,
 				int i, int fd_to_close);
 t_pid_wait	*ft_pid_create(pid_t pid_to_add);
+int			main_manda(int ac, const char **av, char **env);
+
+int			ft_input_read_n_create_bn(const char **av);
+void		ft_free_bn(char **split, t_save_bn *save_bn);
+void		ft_zero_save(int ac, const char **av, char **env,
+				t_save_bn *save_bn);
+int			ft_create_path_save_bn(char **env, t_save_bn *save_bn,
+				int fd_to_close, int i);
+int			ft_cmd_save_create_bn(const char **av, t_save_bn *save_bn,
+				int fd_to_close);
+int			ft_strcmp_pipex(char *str1, char *str2);
+int			ft_usage(void);
+pid_t		*ft_wait_pid_bn(pid_t pid, int check);
+int			ft_execute_1(t_save_bn *save_bn, int pipe_old);
+int			ft_execute_2(t_save_bn *save_bn, int pipe_old);
 
 #endif

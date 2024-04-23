@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 02:18:35 by qdo               #+#    #+#             */
-/*   Updated: 2024/04/21 01:36:38 by qdo              ###   ########.fr       */
+/*   Updated: 2024/04/23 18:24:37 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ char	*get_next_line(int fd)
 	ret = ft_before_after_nl(temp, -1);
 	if (ret == 0)
 		return (ft_free_gnl(temp, 0, &lstr));
+	if (lstr != 0 && *lstr == 0)
+	{
+		free(lstr);
+		lstr = 0;
+	}
 	ft_free_gnl(temp, 0, 0);
 	return (ret);
 }
